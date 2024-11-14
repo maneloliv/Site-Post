@@ -137,6 +137,7 @@ function addPost(url, descricao) {
         console.error('Erro ao inserir post:', error);
         alert("Erro ao inserir post");
     });
+    alert("cehgou");
 }
 
 
