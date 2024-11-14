@@ -30,32 +30,6 @@
             document.getElementById('nomeUsuario1').textContent = usuarioCorrente.nome;
             exibeUsuarios();
         }
-
-        function salvaLogin(event) {
-            event.preventDefault();
-            let login = document.getElementById('txt_login').value;
-            let nome = document.getElementById('txt_nome').value;
-            let email = document.getElementById('txt_email').value;
-            let senha = document.getElementById('txt_senha').value;
-            let senha2 = document.getElementById('txt_senha2').value;
-            if (senha !== senha2) {
-                alert('As senhas informadas não conferem.');
-                return;
-            }
-            addUser(nome, login, senha, email);
-            alert('Usuário salvo com sucesso. Proceda com o login para continuar.');
-            $('#loginModal').modal('hide');
-        }
-
-        function salvaPost(event) {
-            event.preventDefault();
-            let url = document.getElementById('url-foto').value;
-            let descricao = document.getElementById('txt_descricao').value;
-            addPost(url, descricao); // Simulando uma função `addPost`
-            alert('Post salvo com sucesso.');
-            $('#postModal').modal('hide');
-        }
-
         window.addEventListener('load', initPage);
     </script>
 </head>
@@ -76,7 +50,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="post-form" onsubmit="salvaPost(event)">
+                    <form id="post-form" class="form" method="post">
                         <h3 class="text-center text-info">Criar Post</h3>
                         <span id="nomeUsuario1">, seja bem-vindo!</span>
                         <div class="form-group">
@@ -89,7 +63,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-info">Salvar</button>
+                            <button type="button" id="btn_salvar" class="btn btn-info">Salvar</button>
                         </div>
                     </form>
                 </div>
@@ -118,6 +92,20 @@
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        function salvaPost(event) {
+            event.preventDefault();
+            let url = document.getElementById('url-foto').value;
+            let descricao = document.getElementById('txt_descricao').value;
+            alert("url: "+ url + "descricao: "+ descricao);
+            addPost(url, descricao); // Simulando uma função `addPost`
+            alert('Post salvo com sucesso.');
+            $('#postModal').modal('hide');
+        }
+        document.getElementById ('btn_salvar').addEventListener ('click', salvaPost);
+        
+    </script>
+    
 </body>
 
 </html>

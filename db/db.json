@@ -13,6 +13,20 @@
       "senha": "123",
       "nome": "Usuario Comum",
       "email": "user@abc.com"
+    },
+    {
+      "id": "bce61efc-133d-46d8-a21f-f870296af2ce",
+      "login": "sss",
+      "senha": "sss",
+      "nome": "sss",
+      "email": "sss"
+    }
+  ],
+  "posts": [
+    {
+      "id": "6f887097-3e56-416f-a46d-e5a174a9a5ba",
+      "url": "sss",
+      "descricao": "sss"
     }
   ]
 }
