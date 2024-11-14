@@ -111,6 +111,7 @@ function addUser(nome, login, senha, email) {
         console.error('Erro ao inserir usuário:', error);
         alert("Erro ao inserir usuário");
     });
+    window.location.reload(true);
 }
 
 // Adiciona um novo post
@@ -137,7 +138,6 @@ function addPost(url, descricao) {
         console.error('Erro ao inserir post:', error);
         alert("Erro ao inserir post");
     });
-    alert("cehgou");
 }
 
 

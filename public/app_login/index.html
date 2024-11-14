@@ -20,7 +20,7 @@
             let listaUsuarios = '';
             for (let i = 0; i < db_posts.length; i++) {
                 let post = db_posts[i];
-                listaUsuarios += `<tr><td scope="row">${post.id}</td><td>${post.url}</td><td>${post.descricao}</td></tr>`;
+                listaUsuarios += `<tr><td scope="row">${post.id}</td><td><img src="${post.url}"></td><td>${post.descricao}</td></tr>`;
             }
             document.getElementById("table-usuarios").innerHTML = listaUsuarios;
         }
@@ -80,13 +80,6 @@
         <div class="row">
             <div class="col-sm-12">
                 <table id="grid-usuarios" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Login</th>
-                            <th scope="col">E-mail</th>
-                        </tr>
-                    </thead>
                     <tbody id="table-usuarios"></tbody>
                 </table>
             </div>
