@@ -10,6 +10,66 @@ var db_posts = [];
 // Objeto para o usuário corrente
 var usuarioCorrente = {};
 
+
+
+
+
+
+// Funções de manipulação de dados e controle de login
+
+
+function exibePosts() {
+    let listaPost = '';
+    for (let i = 0; i < db_posts.length; i++) {
+        let post = db_posts[i];
+        listaPost += `<tr><li>
+                            <div class=" postzin col-sm-5 m-auto mt-5">
+                                <div class="postzin card mb-3 p-4">
+                                    
+                                    <div class="card-title d-flex align-items-center">
+                                        <img src="${post.url}" style="margin-right:10px; border-radius:20px;" width="35px" height="35px">
+                                        <h5 class="teste m-0"></h5>
+                                    </div>
+                                    <hr>
+                                    <div class="card-body">
+                                        <img src="${post.url}" width="100%">
+                                        <p class="card-text">${post.descricao}</p>
+                                        <p class="card-text">${post.id}</p>
+                                        <p class="card-text"><small>${post.time}</small></p>
+                                        <hr>
+                                        <p href="" class="btn btn--doar">Curtir</p>
+                                        <p href="" class="btn btn--comment">Comentar</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li></tr>`;
+    }
+
+    document.getElementById("table-usuarios").innerHTML = listaPost;
+
+    // Adiciona o nome em todos os elementos com a classe "teste"
+    let nomeElements = document.getElementsByClassName('teste');
+    for (let element of nomeElements) {
+        element.innerText += usuarioCorrente.nome;
+    }
+}
+
+function initPage() {
+    document.getElementById('btn_logout').addEventListener('click', logoutUser);
+    document.getElementById('nomeUsuario').textContent = usuarioCorrente.nome;
+   
+      
+    exibePosts();
+}
+
+// Obter a hora atual
+function getTime() {
+    const time = new Date();
+    const hour = time.getHours().toString().padStart(2, '0');
+    const minutes = time.getMinutes().toString().padStart(2, '0');
+    return `${hour}h ${minutes}min`;
+}
+
 // Função para gerar códigos randômicos
 function generateUUID() { 
     var d = new Date().getTime();
@@ -116,7 +176,7 @@ function addUser(nome, login, senha, email) {
 
 // Adiciona um novo post
 function addPost(url, descricao) {
-    let post = { "id": generateUUID(), "url": url, "descricao": descricao };
+    let post = { "id": generateUUID(), "url": url, "descricao": descricao, "time": getTime()};
     fetch(apiUrlPosts, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -139,6 +199,64 @@ function addPost(url, descricao) {
         alert("Erro ao inserir post");
     });
 }
+
+function salvaPost(event) {
+    event.preventDefault();
+    let url = document.getElementById('url-foto').value;
+    let descricao = document.getElementById('txt_descricao').value;
+    alert("url: "+ url + "descricao: "+ descricao);
+
+    addPost(url, descricao); // Simulando uma função `addPost`
+    
+    alert('Post salvo com sucesso.');
+  
+    $('#postModal').modal('hide');
+    window.location.reload(true);
+}
+
+// Declara uma função para processar o formulário de login
+function processaFormLogin (event) {                
+    // Cancela a submissão do formulário para tratar sem fazer refresh da tela
+    event.preventDefault ();
+
+    // Obtem os dados de login e senha a partir do formulário de login
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+
+    // Valida login e se estiver ok, redireciona para tela inicial da aplicação
+    resultadoLogin = loginUser (username, password);
+    if (resultadoLogin) {
+        window.location.href = 'index.html';
+    }
+    else { // Se login falhou, avisa ao usuário
+        alert ('Usuário ou senha incorretos');
+    }
+}
+
+function salvaLogin (event) {
+    // Cancela a submissão do formulário para tratar sem fazer refresh da tela
+    event.preventDefault ();
+
+    // Obtem os dados do formulário
+    let login  = document.getElementById('txt_login').value;
+    let nome   = document.getElementById('txt_nome').value;
+    let email  = document.getElementById('txt_email').value;
+    let senha  = document.getElementById('txt_senha').value;
+    let senha2 = document.getElementById('txt_senha2').value;
+    if (senha != senha2) {
+        alert ('As senhas informadas não conferem.');
+        return
+}
+
+    // Adiciona o usuário no banco de dados
+    addUser (nome, login, senha, email);
+    alert ('Usuário salvo com sucesso. Proceda com o login para ');
+
+    // Oculta a div modal do login
+    //document.getElementById ('loginModal').style.display = 'none';
+    $('#loginModal').modal('hide');
+}
+
 
 
 // Inicializa a aplicação de login

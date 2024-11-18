@@ -2,13 +2,21 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
+  }
+  .postzin{
+    background-color: #000000;
+    color: #ffffff;
+  }
+  .text-body-secondary{
+    color: #ffffff;
   }
   h1{
     font-family: Arial, sans-serif;
     text-shadow: 1px 1px 5px #2077b9;
   }
   body {
-    background-color: #f0f0f0;
+    background-color: #000000;
     font-family: Arial, sans-serif;
     -webkit-font-smoothing: antialiased !important;
     padding: 20px;
@@ -106,6 +114,69 @@ div.newPost {
   textarea:focus {
     border: 2px solid #23a0ff;
   }
+  .btn {
+    width: 35%;
+    height: 30%;
+    padding: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    transition: all .5s ease; 
+  }
+  
+  .btn--doar {
+    color: #fff;
+    padding-right: 0;
+    background-color: #c0392b;
+    -webkit-clip-path: polygon(0% 0%, 100% 0, 100% 70%, 90% 100%, 0% 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 75% 100%, 0 100%);
+  
+  }
+  .btn--comment {
+    color: #fff;
+    padding-right: 0;
+    background-color: #2b6ec0;
+    -webkit-clip-path: polygon(0% 0%, 100% 0, 100% 70%, 90% 100%, 0% 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 75% 100%, 0 100%);
+  
+  }
+  
+  .btn--doar:hover { 
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%);  
+  }
+  .btn--comment:hover { 
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%);  
+  }
+  
+  .btn--doar:after {
+    content: "\f004";
+    color: #e74c3c;
+    font-family: FontAwesome;
+    display: inline-block;
+    position: relative;
+    right: -55px;
+    transition: all 0.2s ease;
+  }
+  .btn--comment:after {
+    content: "\f075";
+    color: #2b6ec0;
+    font-family: FontAwesome;
+    display: inline-block;
+    position: relative;
+    right: -55px;
+    transition: all 0.2s ease;
+  }
+  
+  .btn--doar:hover:after {
+    margin: -5px 15px;
+    right: 0px;
+  }
+  .btn--comment:hover:after {
+    margin: -5px 15px;
+    right: 0px;
+  }
   
   div.iconsAndButton {
     display: flex;
@@ -167,3 +238,5 @@ div.newPost {
   button#resetButton:hover {
     background-color: #c82333; /* Cor de fundo ao passar o mouse */
   }
+
+  
