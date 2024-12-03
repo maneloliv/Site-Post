@@ -21,5 +21,14 @@
       "descricao": "fotinha",
       "time": "17h 53min"
     }
+  ],
+  "comentarios": [
+    {
+      "id_comentario": "dd",
+      "id_post":"dd",
+      "id_usuario":"dd",
+      "comentario":"d",
+      "hora":"d"
+    }
   ]
 }
