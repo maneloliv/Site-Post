@@ -1,11 +1,13 @@
 const LOGIN_URL = "login.html";
 const apiUrlUsuarios = '/usuarios';
 const apiUrlPosts = '/posts';
+const apiUrlComentarios = '/comentarios';
 
 
 // Inicializa db_usuarios e db_posts como arrays vazios para evitar erros
 var db_usuarios = [];
 var db_posts = [];
+let index;
 
 // Objeto para o usuário corrente
 var usuarioCorrente = {};
@@ -38,11 +40,12 @@ function exibePosts() {
                                         <p class="card-text"><small>${post.time}</small></p>
                                         <hr>
                                         <p href="" class="btn btn--doar">Curtir</p>
-                                        <p href="" class="btn btn--comment">Comentar</p>
+                                        <button type="button" class="btn btn--comment" data-bs-toggle="modal" onclick="getidpost(${i})" data-bs-target="#comentariomodal">Comentario</button>
                                     </div>
                                 </div>
                             </div>
                         </li></tr>`;
+                        
     }
 
     document.getElementById("table-usuarios").innerHTML = listaPost;
@@ -85,6 +88,12 @@ function generateUUID() {
         }
         return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
+}
+function getidpost(i){
+    
+    index = i;
+    return index;
+    
 }
 
 // Inicializa o usuarioCorrente e banco de dados de usuários
@@ -200,6 +209,39 @@ function addPost(url, descricao) {
     });
 }
 
+// Adiciona um novo comentario
+function addcomentario(comentario) {
+    let comentarios = {
+        "id_comentario": generateUUID(),
+        "id_post": db_posts[index]?.id, // Certifique-se de que 'index' é válido
+        "id_usuario": usuarioCorrente?.id, // Certifique-se de que 'usuarioCorrente' é válido
+        "comentario": comentario,
+        "hora": getTime()
+    };
+
+    // Retorne a Promise do fetch
+    return fetch(apiUrlComentarios, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(comentarios),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+        }
+        return response.json(); // Retorna o corpo da resposta como JSON
+    })
+    .then(data => {
+        console.log("Comentário adicionado:", data);
+        alert("Comentário inserido com sucesso!");
+    })
+    .catch(error => {
+        console.error("Erro ao inserir comentário:", error);
+        alert("Erro ao inserir comentário. Verifique os logs.");
+    });
+}
+
+
 function salvaPost(event) {
     event.preventDefault();
     let url = document.getElementById('url-foto').value;
@@ -214,6 +256,17 @@ function salvaPost(event) {
     window.location.reload(true);
 }
 
+function salvacomentario(event) {
+    event.preventDefault();
+    let comentario = document.getElementById('txt_comentario').value;
+
+    addcomentario(comentario); // Simulando uma função `addPost`
+    
+    alert('comentario salvo com sucesso.');
+  
+    $('#comentariomodal').modal('hide');
+    window.location.reload(true);
+}
 // Declara uma função para processar o formulário de login
 function processaFormLogin (event) {                
     // Cancela a submissão do formulário para tratar sem fazer refresh da tela
